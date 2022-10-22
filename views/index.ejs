@@ -1,0 +1,13 @@
+<%- include('partials/header.ejs'); %>
+    <h1>Home</h1>
+    <p> 
+        <%= startingContent %>
+    </p>
+    <form method="get" action="/">
+        <label id = "blogTitle">Blog: </label>
+        <input type="text" id="blogTitle">
+        <input type="submit">
+    </form>
+    <br><br><br>
+
+<%- include('partials/footer.ejs'); %>
