@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 <body>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <div class="perso">
         <form action="/next" method="get">
             <input type="submit" class="btns2" style="left: 1220px; top: -20px;" value=">">
@@ -23,15 +23,36 @@
             </div>
             <div class="infosup">
                 <h1><%= personaje['name'] %> </h1>
-                <p><%= personaje['slug'] %></p>
+                <h3>ID: <%= personaje['id'] %></h3>
+                <ul>
+                    <li><h2><%= personaje['biography']["full-name"] %></h2></li>
+                    <li><h2>biography</h2></li>
+                    <ul>
+                        <li><h4>Born in:<%= personaje['biography']["placeOfBirth"] %></h4></li>
+                        <li><h4>First appeared in: <%= personaje['biography']["firstAppearance"] %></h4></li>
+                    </ul>
+                    <li><h4><%= personaje.appearance.gender %></h4></li>
+                    <li><h4><%= personaje['appearance']['race'] %></h4></li>
+                    <br>
+                    <li>
+                        <h4>Height: <%= personaje.appearance.height[1] %></h4> 
+                        <h4>Weight: <%= personaje.appearance.weight[1] %></h4>
+                    </li>
+                    <br>
+                    <li>
+                        <h4>Eye color: <%= personaje['appearance']["eyeColor"] %></h4>
+                        <h4>Hair color: <%= personaje.appearance["hairColor"] %> </h4>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
     <div class="return">
         <form action="/">
-            <button type="submit" class="btre"> <h3>Return to main</h3></button>
+            <button type="submit" class="btn btn-outline-dark"><h4>Return to main</h4></button>
         </form>
     </div>
+    
         
 </body>
 </html>
