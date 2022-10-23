@@ -12,51 +12,57 @@ app.use(express.static("public"));
 app.engine("ejs", require("ejs").renderFile);
 app.set("view engine", "ejs");
 
-
-
-router.route("/")
-    .get((req, res)=>{
-        var id=1;
-        const link= "https://superheroapi.com/api/3036134866714953/";
-        //"https://akabab.github.io/superhero-api/api/id/"+id+".json";
-        axios.get(link+ id.toString())
-        .then((apiResponse) =>{
-            const character = apiResponse.data;
-            //res.render('presentacion', {character: character});
-
-        });
-    })
-    .post((req, res) => {
-        searchName = req.body.searchName;
-        axios.get(link + "search/" + searchName)
-            .then((apiResponse) => {
+function ran(min, max) {
+    return Math.floor((Math.random() * (max - min + 1)) + min);
+}
+var aidi= 1;
+var link1= "https://akabab.github.io/superhero-api/api/id/";
+app.route('/')
+    .get((req, res) => {
+        var link= link1+aidi+".json";
+        console.log(aidi);
+        axios.get(link)
+            .then((response) => {
+                const doto = response.data;
+                //console.log(doto['name'])
+                res.render('presentacion', {personaje: doto});
+            });
+    }).post((req, res) => {
+        search = req.body.searchid;    
+        axios.get(link1+search+".json")
+            .then((response) => {
                 try{
-                    const character = apiResponse.data.results[0];
-                    currentId = parseInt(character.id);
-                    res.redirect('/' + currentId.toString());
+                    aidi = parseInt(search);
+                    res.redirect('/');
                 }
                 catch{
-                    res.redirect('/' + currentId.toString());
+                    res.redirect('/');
                 }
             });
     });
-        /*response
-            /*.on("data", (jdata) =>{
-                data += jdata;
-            })
-            .on("end", ()=>{
-                var jsondata= JSON.parse(data);
-                console.log(jsondata["intelligence"]);
-                //res.send("Trones");
-            })
-            .on("error", (e) =>{
-                console.log("errror");
-                res.send("error");
-            });*/
 
-app.get("/prueba", (req, res) =>{
-    res.send("Hola");
+app.route('/pag')
+    .get((req, res) => {
+        var link=link1+aidi+".json";
+        axios.get(link)
+            .then((response) => {
+                const doto = response.data;
+                //console.log(doto['name'])
+                res.render('index', {personaje: doto});
+            });
+    });
+app.get('/next', (req, res) => {
+    if(aidi == 700) aidi = 1;
+    else aidi += 1;
+    res.redirect('/pag');
 });
+app.get('/previous', (req, res) => {
+    if(aidi == 1) aidi = 700;
+    else aidi -= 1;
+    res.redirect('/pag');
+});
+
+
 app.listen(3000, ()=>{
     console.log("Example app listening on port 1000");
 });
