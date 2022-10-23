@@ -20,7 +20,7 @@ var link1= "https://akabab.github.io/superhero-api/api/id/";
 app.route('/')
     .get((req, res) => {
         var link= link1+aidi+".json";
-        console.log(aidi);
+
         axios.get(link)
             .then((response) => {
                 const doto = response.data;
